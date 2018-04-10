@@ -4,17 +4,36 @@ const express = require('express');
 // Express server handling requests and responses
 const app = express();
 
+
+// Make everything inside of public/ available
+app.use(express.static('public'));
+
 // our first Route
 app.get('/', (req,res) => {
     console.log(req);
-    res.send('<h1>Welcome Ironhacker. :)</h1>');
+    //res.send('<h1>Welcome Ironhacker. :)</h1>');
+    res.sendFile(__dirname + '/views/home-page.html');
+
 });
 
 // our first Route
 app.get('/pepe', (req,res) => {
     console.log(req);
-    let a = Math.random()*50
-    res.send('<h1>Welcome Juan. :) ' + a +'</h1>');
+    let a = Math.random()*100
+    
+    let img;
+    if(a < 50){
+        img="/homer.png"
+    }else{
+        img="/maggie.png"
+    }
+    
+    res.send(`
+    
+    <h1>Welcome Juan. :) </h1>
+    <img src="${img}"/>
+    
+    `);
 });
 
 
